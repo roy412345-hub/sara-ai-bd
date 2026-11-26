@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101426">
+<title>SARA - Personal AI Assistant</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:#fff;
+ font-family:Arial,sans-serif;
+}
+.app{max-width:480px;margin:auto;padding:20px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:25px}
+.logo{
+ width:48px;height:48px;border-radius:16px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#8c70ff,#42d6d4);
+ color:#101426;font-size:25px;font-weight:bold
+}
+h1{letter-spacing:4px;margin:0}
+small{color:#aab4ce}
+.hero{
+ padding:24px;border-radius:24px;
+ background:linear-gradient(140deg,#292753,#172b45);
+ border:1px solid #41436b;
+}
+.hero h2{font-size:27px;margin:12px 0}
+.hero p{color:#c0c8dc;line-height:1.6}
+button{
+ border:0;border-radius:13px;padding:13px 17px;
+ background:#8874ff;color:white;font-weight:bold;
+ cursor:pointer
+}
+.voice{background:#263650;margin-left:5px}
+.section{margin-top:25px}
+.section h3{font-size:17px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{
+ background:#151e32;border:1px solid #293751;
+ border-radius:17px;padding:17px;
+}
+.tile .emoji{font-size:25px}
+.tile b{display:block;margin-top:10px}
+.tile small{display:block;margin-top:5px}
+.service{
+ display:flex;justify-content:space-between;
+ background:#151e32;padding:15px;
+ border-radius:13px;margin:9px 0;
+ border:1px solid #293751
+}
+.chat{
+ background:#151e32;padding:15px;
+ border-radius:17px;border:1px solid #293751
+}
+.reply{
+ background:#263650;padding:13px;
+ border-radius:13px;line-height:1.6;
+ font-size:14px;min-height:48px
+}
+.inputrow{display:flex;gap:8px;margin-top:12px}
+input{
+ min-width:0;flex:1;padding:13px;
+ border-radius:12px;border:1px solid #35445e;
+ background:#0b1020;color:white;outline:none
+}
+.send{padding:12px}
+.note{
+ margin-top:22px;padding:14px;
+ border-left:3px solid #50d6d0;
+ background:#142438;color:#bdc9df;
+ font-size:12px;line-height:1.7
+}
+footer{text-align:center;color:#71809e;font-size:11px;margin:25px 0}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="logo">S</div>
+ <div>
+  <h1>SARA</h1>
+  <small>YOUR PERSONAL AI ASSISTANT</small>
+ </div>
+</header>
+
+<section class="hero">
+ <small>HELLO, I'M SARA</small>
+ <h2>হ্যালো! আমি Sara।</h2>
+ <p>তোমার ব্যক্তিগত AI Assistant। তোমার কাজ, গবেষণা, লেখালেখি ও পরিকল্পনায় সাহায্য করতে প্রস্তুত।</p>
+ <button onclick="document.getElementById('msg').focus()">Chat with Sara</button>
+ <button class="voice" onclick="speak()">🎙 Voice</button>
+</section>
+
+<section class="section">
+<h3>My Workspace</h3>
+<div class="grid">
+ <div class="tile"><div class="emoji">💬</div><b>AI Chat</b><small>Chat with Sara</small></div>
+ <div class="tile"><div class="emoji">🔎</div><b>Research</b><small>Information & Analysis</small></div>
+ <div class="tile"><div class="emoji">✍️</div><b>Writing</b><small>Emails & Documents</small></div>
+ <div class="tile"><div class="emoji">📅</div><b>Tasks</b><small>Tasks & Reminders</small></div>
+</div>
+</section>
+
+<section class="section">
+<h3>Connected Services</h3>
+<div class="service"><span>📧 Gmail</span><small>Not connected</small></div>
+<div class="service"><span>📘 Facebook</span><small>Not connected</small></div>
+<div class="service"><span>🟢 WhatsApp</span><small>Not connected</small></div>
+</section>
+
+<section class="section">
+<h3>Talk to Sara</h3>
+<div class="chat">
+ <div class="reply" id="reply">
+  হ্যালো! আমি Sara। আজ তোমাকে কীভাবে সাহায্য করতে পারি?
+ </div>
+ <div class="inputrow">
+  <input id="msg" placeholder="এখানে লিখো...">
+  <button class="send" onclick="sendMessage()">Send</button>
+ </div>
+</div>
+</section>
+
+<div class="note">
+<b>🔐 Permission: Limited Autonomy</b><br>
+গুরুত্বপূর্ণ কোনো মেসেজ পাঠানো, পোস্ট প্রকাশ বা পরিবর্তনের আগে Sara তোমার অনুমতি নেবে।
+</div>
+
+<footer>PROJECT SARA · VERSION 0.1</footer>
+</div>
+
+<script>
+function sendMessage(){
+ const input=document.getElementById('msg');
+ const reply=document.getElementById('reply');
+ if(!input.value.trim())return;
+ reply.textContent="তোমার নির্দেশ পেয়েছি: "+input.value+
+ " । AI সংযোগ পরবর্তী ধাপে যুক্ত হবে।";
+ input.value="";
+}
+function speak(){
+ if(!window.speechSynthesis){
+  alert("এই ব্রাউজারে Voice সমর্থিত নয়।");
+  return;
+ }
+ const text="Hello! I am Sara, your personal assistant.";
+ const voice=new SpeechSynthesisUtterance(text);
+ voice.lang="en-US";
+ voice.pitch=1.1;
+ speechSynthesis.speak(voice);
+}
+</script>
+</body>
+</html>
